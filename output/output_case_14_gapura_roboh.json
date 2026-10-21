@@ -1,0 +1,469 @@
+{
+  "metadata": {
+    "case_id": "case_14_gapura_roboh",
+    "title": "Evakuasi Darurat: Gapura Peringatan Roboh Menutup Gerbang Utama",
+    "description": "Skenario evakuasi N=5 berbasis Pathfinding. Gapura besi hiasan roboh menimpa akses gerbang utama (Edge 3 -> 4), memaksa pengalihan jalur evakuasi ke pintu darurat samping.",
+    "algorithm": "StaticDijkstra"
+  },
+  "total_steps": 13,
+  "initial_topology": {
+    "nodes": [
+      {
+        "id": 0,
+        "label": "Halaman Dalam Kompleks (Start)",
+        "pos": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 1,
+        "label": "Selasar Barat",
+        "pos": [
+          5.0,
+          4.0
+        ]
+      },
+      {
+        "id": 2,
+        "label": "Selasar Timur",
+        "pos": [
+          5.0,
+          -4.0
+        ]
+      },
+      {
+        "id": 3,
+        "label": "Area Depan Gerbang Utama",
+        "pos": [
+          10.0,
+          0.0
+        ]
+      },
+      {
+        "id": 4,
+        "label": "Jalan Raya Safe Zone (Goal)",
+        "pos": [
+          15.0,
+          0.0
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "from": 0,
+        "to": 1,
+        "weight": 2.0
+      },
+      {
+        "from": 0,
+        "to": 2,
+        "weight": 3.0
+      },
+      {
+        "from": 1,
+        "to": 3,
+        "weight": 2.0
+      },
+      {
+        "from": 1,
+        "to": 2,
+        "weight": 1.0
+      },
+      {
+        "from": 2,
+        "to": 3,
+        "weight": 2.0
+      },
+      {
+        "from": 3,
+        "to": 4,
+        "weight": 99.0
+      }
+    ]
+  },
+  "raw_quantitative_trace": [
+    {
+      "step": 1,
+      "event_type": "INITIALIZATION",
+      "mutations": {
+        "start_node": 0,
+        "distance_table": {
+          "0": 0,
+          "1": "inf",
+          "2": "inf",
+          "3": "inf",
+          "4": "inf"
+        },
+        "priority_queue": [
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "step": 2,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 0,
+        "evaluated_edge": [
+          0,
+          1
+        ],
+        "edge_weight": 2.0,
+        "old_dist": "inf",
+        "new_dist": 2.0,
+        "priority_queue": [
+          [
+            2.0,
+            1
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 2.0,
+          "2": "inf",
+          "3": "inf",
+          "4": "inf"
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": null,
+          "3": null,
+          "4": null
+        }
+      }
+    },
+    {
+      "step": 3,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 0,
+        "evaluated_edge": [
+          0,
+          2
+        ],
+        "edge_weight": 3.0,
+        "old_dist": "inf",
+        "new_dist": 3.0,
+        "priority_queue": [
+          [
+            2.0,
+            1
+          ],
+          [
+            3.0,
+            2
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 2.0,
+          "2": 3.0,
+          "3": "inf",
+          "4": "inf"
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": 0,
+          "3": null,
+          "4": null
+        }
+      }
+    },
+    {
+      "step": 4,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 1,
+        "evaluated_edge": [
+          1,
+          3
+        ],
+        "edge_weight": 2.0,
+        "old_dist": "inf",
+        "new_dist": 4.0,
+        "priority_queue": [
+          [
+            3.0,
+            2
+          ],
+          [
+            4.0,
+            3
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 2.0,
+          "2": 3.0,
+          "3": 4.0,
+          "4": "inf"
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": 0,
+          "3": 1,
+          "4": null
+        }
+      }
+    },
+    {
+      "step": 5,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 3,
+        "evaluated_edge": [
+          3,
+          4
+        ],
+        "edge_weight": 1.0,
+        "old_dist": "inf",
+        "new_dist": 5.0,
+        "priority_queue": [
+          [
+            5.0,
+            4
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 2.0,
+          "2": 3.0,
+          "3": 4.0,
+          "4": 5.0
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": 0,
+          "3": 1,
+          "4": 3
+        }
+      }
+    },
+    {
+      "step": 6,
+      "event_type": "PATH_FOUND",
+      "mutations": {
+        "target_node": 4,
+        "active_path": [
+          0,
+          1,
+          3,
+          4
+        ],
+        "total_cost": 5.0,
+        "distance_table": {
+          "0": 0,
+          "1": 2.0,
+          "2": 3.0,
+          "3": 4.0,
+          "4": 5.0
+        }
+      }
+    },
+    {
+      "step": 7,
+      "event_type": "UPDATE_WEIGHT_EVENT",
+      "mutations": {
+        "target_edge": [
+          3,
+          4
+        ],
+        "old_weight": 1.0,
+        "new_weight": 99.0
+      }
+    },
+    {
+      "step": 8,
+      "event_type": "INITIALIZATION",
+      "mutations": {
+        "start_node": 0,
+        "distance_table": {
+          "0": 0,
+          "1": "inf",
+          "2": "inf",
+          "3": "inf",
+          "4": "inf"
+        },
+        "priority_queue": [
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "step": 9,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 0,
+        "evaluated_edge": [
+          0,
+          1
+        ],
+        "edge_weight": 2.0,
+        "old_dist": "inf",
+        "new_dist": 2.0,
+        "priority_queue": [
+          [
+            2.0,
+            1
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 2.0,
+          "2": "inf",
+          "3": "inf",
+          "4": "inf"
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": null,
+          "3": null,
+          "4": null
+        }
+      }
+    },
+    {
+      "step": 10,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 0,
+        "evaluated_edge": [
+          0,
+          2
+        ],
+        "edge_weight": 3.0,
+        "old_dist": "inf",
+        "new_dist": 3.0,
+        "priority_queue": [
+          [
+            2.0,
+            1
+          ],
+          [
+            3.0,
+            2
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 2.0,
+          "2": 3.0,
+          "3": "inf",
+          "4": "inf"
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": 0,
+          "3": null,
+          "4": null
+        }
+      }
+    },
+    {
+      "step": 11,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 1,
+        "evaluated_edge": [
+          1,
+          3
+        ],
+        "edge_weight": 2.0,
+        "old_dist": "inf",
+        "new_dist": 4.0,
+        "priority_queue": [
+          [
+            3.0,
+            2
+          ],
+          [
+            4.0,
+            3
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 2.0,
+          "2": 3.0,
+          "3": 4.0,
+          "4": "inf"
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": 0,
+          "3": 1,
+          "4": null
+        }
+      }
+    },
+    {
+      "step": 12,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 3,
+        "evaluated_edge": [
+          3,
+          4
+        ],
+        "edge_weight": 99.0,
+        "old_dist": "inf",
+        "new_dist": 103.0,
+        "priority_queue": [
+          [
+            103.0,
+            4
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 2.0,
+          "2": 3.0,
+          "3": 4.0,
+          "4": 103.0
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": 0,
+          "3": 1,
+          "4": 3
+        }
+      }
+    },
+    {
+      "step": 13,
+      "event_type": "PATH_FOUND",
+      "mutations": {
+        "target_node": 4,
+        "active_path": [
+          0,
+          1,
+          3,
+          4
+        ],
+        "total_cost": 103.0,
+        "distance_table": {
+          "0": 0,
+          "1": 2.0,
+          "2": 3.0,
+          "3": 4.0,
+          "4": 103.0
+        }
+      }
+    }
+  ]
+}

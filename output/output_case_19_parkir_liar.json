@@ -1,0 +1,272 @@
+{
+  "metadata": {
+    "case_id": "case_19_parkir_liar",
+    "title": "Evakuasi Darurat: Penurunan Kapasitas Akibat Parkir Liar Motor",
+    "description": "Skenario evakuasi N=5 berbasis Maximum Flow. Deretan sepeda motor parkir sembarangan mempersempit lebar efektif lorong evakuasi (Edge 2 -> 3), menurunkan kapasitas throughput aliran evakuasi.",
+    "algorithm": "StaticDijkstra"
+  },
+  "total_steps": 6,
+  "initial_topology": {
+    "nodes": [
+      {
+        "id": 0,
+        "label": "Gedung Parkir Pusat (Source / Start)",
+        "pos": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": 1,
+        "label": "Lorong Akses Utara",
+        "pos": [
+          5.0,
+          5.0
+        ]
+      },
+      {
+        "id": 2,
+        "label": "Lorong Akses Selatan",
+        "pos": [
+          5.0,
+          -5.0
+        ]
+      },
+      {
+        "id": 3,
+        "label": "Simpul Pintu Samping",
+        "pos": [
+          10.0,
+          0.0
+        ]
+      },
+      {
+        "id": 4,
+        "label": "Zona Safe Zone Halaman (Sink / Goal)",
+        "pos": [
+          15.0,
+          0.0
+        ]
+      }
+    ],
+    "edges": [
+      {
+        "from": 0,
+        "to": 1,
+        "weight": 1.0
+      },
+      {
+        "from": 0,
+        "to": 2,
+        "weight": 1.0
+      },
+      {
+        "from": 1,
+        "to": 3,
+        "weight": 1.0
+      },
+      {
+        "from": 1,
+        "to": 2,
+        "weight": 1.0
+      },
+      {
+        "from": 2,
+        "to": 3,
+        "weight": 1.0
+      },
+      {
+        "from": 3,
+        "to": 4,
+        "weight": 1.0
+      }
+    ]
+  },
+  "raw_quantitative_trace": [
+    {
+      "step": 1,
+      "event_type": "INITIALIZATION",
+      "mutations": {
+        "start_node": 0,
+        "distance_table": {
+          "0": 0,
+          "1": "inf",
+          "2": "inf",
+          "3": "inf",
+          "4": "inf"
+        },
+        "priority_queue": [
+          [
+            0,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "step": 2,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 0,
+        "evaluated_edge": [
+          0,
+          1
+        ],
+        "edge_weight": 1.0,
+        "old_dist": "inf",
+        "new_dist": 1.0,
+        "priority_queue": [
+          [
+            1.0,
+            1
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 1.0,
+          "2": "inf",
+          "3": "inf",
+          "4": "inf"
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": null,
+          "3": null,
+          "4": null
+        }
+      }
+    },
+    {
+      "step": 3,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 0,
+        "evaluated_edge": [
+          0,
+          2
+        ],
+        "edge_weight": 1.0,
+        "old_dist": "inf",
+        "new_dist": 1.0,
+        "priority_queue": [
+          [
+            1.0,
+            1
+          ],
+          [
+            1.0,
+            2
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": "inf",
+          "4": "inf"
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": 0,
+          "3": null,
+          "4": null
+        }
+      }
+    },
+    {
+      "step": 4,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 1,
+        "evaluated_edge": [
+          1,
+          3
+        ],
+        "edge_weight": 1.0,
+        "old_dist": "inf",
+        "new_dist": 2.0,
+        "priority_queue": [
+          [
+            1.0,
+            2
+          ],
+          [
+            2.0,
+            3
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 2.0,
+          "4": "inf"
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": 0,
+          "3": 1,
+          "4": null
+        }
+      }
+    },
+    {
+      "step": 5,
+      "event_type": "RELAX_EDGE",
+      "mutations": {
+        "current_node": 3,
+        "evaluated_edge": [
+          3,
+          4
+        ],
+        "edge_weight": 1.0,
+        "old_dist": "inf",
+        "new_dist": 3.0,
+        "priority_queue": [
+          [
+            3.0,
+            4
+          ]
+        ],
+        "distance_table": {
+          "0": 0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 2.0,
+          "4": 3.0
+        },
+        "parent_table": {
+          "0": null,
+          "1": 0,
+          "2": 0,
+          "3": 1,
+          "4": 3
+        }
+      }
+    },
+    {
+      "step": 6,
+      "event_type": "PATH_FOUND",
+      "mutations": {
+        "target_node": 4,
+        "active_path": [
+          0,
+          1,
+          3,
+          4
+        ],
+        "total_cost": 3.0,
+        "distance_table": {
+          "0": 0,
+          "1": 1.0,
+          "2": 1.0,
+          "3": 2.0,
+          "4": 3.0
+        }
+      }
+    }
+  ]
+}
