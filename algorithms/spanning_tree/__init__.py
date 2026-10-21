@@ -1,3 +1,4 @@
 from algorithms.spanning_tree.static_kruskal import StaticKruskal
-
-__all__ = ["StaticKruskal"]
+from algorithms.spanning_tree.static_prim import StaticPrim
+ 
+__all__ = ["StaticKruskal", "StaticPrim"]
