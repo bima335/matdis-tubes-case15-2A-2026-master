@@ -2,6 +2,19 @@ import matplotlib.pyplot as plt
 import networkx as nx
 
 
+def route_to_edges(route):
+    """Ubah hasil algoritma menjadi daftar edge (u, v) untuk digambar.
+
+    - Jalur simpul (Dijkstra): [0, 1, 2]            -> [(0, 1), (1, 2)]
+    - Daftar edge (Prim/Kruskal): [(0, 1, 9.0), ...] -> [(0, 1), ...]
+    """
+    if not route:
+        return []
+    if isinstance(route[0], (tuple, list)):
+        return [(e[0], e[1]) for e in route]
+    return list(zip(route[:-1], route[1:]))
+
+
 class SimpleGraphVisualizer:
 
     def __init__(self, graph: nx.DiGraph):
@@ -66,15 +79,18 @@ class SimpleGraphVisualizer:
             )
 
         # 4. Highlight Rute Hasil Algoritma (Warna Hijau Tebal)
-        if active_path and len(active_path) > 1:
-            path_edges = list(zip(active_path[:-1], active_path[1:]))
+        #    Mendukung jalur simpul (Dijkstra) dan daftar edge MST (Prim/Kruskal).
+        path_edges = route_to_edges(active_path)
+        if path_edges:
+            # MST tidak berarah, jadi panah hanya dipakai untuk jalur Dijkstra.
+            is_mst = isinstance(active_path[0], (tuple, list))
             nx.draw_networkx_edges(
                 self.graph,
                 self.pos,
                 edgelist=path_edges,
                 edge_color="green",
                 width=4,
-                arrows=True,
+                arrows=not is_mst,
                 arrowsize=20,
             )
 
